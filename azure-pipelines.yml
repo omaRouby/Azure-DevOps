@@ -1,32 +1,33 @@
 trigger:
-  branches:
-    include:
-      - main  # or your desired branch
+- main
 
 pool:
-  name: 'Default'  # Replace 'Default' with your actual pool if needed
+  name: Default
   demands:
-    - agent.name -equals ubuntu-ec2-agent  # Corrected demand format
+    - agent.name -equals ubuntu-ec2-agent
+
+variables:
+  dockerRegistryServiceConnection: 'dockerhub'
+  imageName: 'omarrouby/spring-app'
 
 steps:
-# Step 1: Check out the code from the repository
-- checkout: self
-
-# Step 2: Build the Docker image using the Dockerfile
-
 - task: Docker@2
+  displayName: 'Build and Push Docker Image'
   inputs:
     command: 'buildAndPush'
-    Dockerfile: 'spring-boot-app/spring-boot-app/Dockerfile'
+    containerRegistry: 'dockerhub'
+    repository: '$(imageName)'
+    dockerfile: 'spring-boot-app/spring-boot-app/Dockerfile'
+    tags: |
+      latest
+    buildContext: 'spring-boot-app'
     
-# Step 3: Apply Kubernetes deployment
-- script: |
-    kubectl apply -f kubernetes/deployment.yaml
-    kubectl apply -f kubernetes/ingress.yaml
+- task: Kubernetes@1
   displayName: 'Deploy to Minikube'
-
-# Step 4: Verify the Deployment
-- script: |
-    kubectl get pods
-    kubectl get ingress
-  displayName: 'Verify Deployment'
+  inputs:
+    connectionType: 'None'
+    namespace: 'default'
+    command: 'apply'
+    useConfigFile: true
+    configFile: '$(System.DefaultWorkingDirectory)/kubernetes/deployment.yaml'
+    arguments: ''
