@@ -1,42 +1,34 @@
 trigger:
-- main  # Triggers pipeline on main branch push
+  branches:
+    include:
+      - main  # or your desired branch
 
 pool:
-  vmImage: 'ubuntu-latest'
-
-variables:
-  dockerHubConnection: 'dockerhub-connection'  # Your DockerHub service connection name
-  imageName: 'omarrouby/spring-app'  # Your DockerHub image name
-  containerRegistry: 'docker.io'
-  kubernetesNamespace: 'default'
-  kubernetesClusterConfigPath: '/home/omar/.kube/config'  # Path to your Kube config file on EC2
+  name: 'Default'  # The pool where your EC2 agent is registered
+  demands:
+    - agent.name -equals ip-10-0-1-17  # This should match the name of your self-hosted agent
 
 steps:
-# Checkout code from GitHub
-- task: Checkout@1
-  inputs:
-    repository: self
+# Step 1: Check out the code from the repository
+- checkout: self
 
-# Build the Docker image
+# Step 2: Build the Docker image using the Dockerfile
 - task: Docker@2
   inputs:
-    containerRegistry: $(dockerHubConnection)
-    repository: $(imageName)
-    command: build
+    containerRegistry: 'omarrouby'  # DockerHub username
+    repository: 'spring-app'        # DockerHub repository name
+    command: 'buildAndPush'
     Dockerfile: 'spring-boot-app/Dockerfile'
-    tags: latest
+    tags: 'latest'
 
-# Push the Docker image to DockerHub
-- task: Docker@2
-  inputs:
-    containerRegistry: $(dockerHubConnection)
-    repository: $(imageName)
-    command: push
-    tags: latest
-
-# Deploy the application to Minikube
+# Step 3: Apply Kubernetes deployment
 - script: |
-    kubectl --kubeconfig $(kubernetesClusterConfigPath) apply -f kubernetes/deployment.yaml
-    kubectl --kubeconfig $(kubernetesClusterConfigPath) apply -f kubernetes/ingress.yaml
+    kubectl apply -f kubernetes/deployment.yaml
+    kubectl apply -f kubernetes/ingress.yaml
   displayName: 'Deploy to Minikube'
 
+# Step 4: Verify the Deployment
+- script: |
+    kubectl get pods
+    kubectl get ingress
+  displayName: 'Verify Deployment'
