@@ -6,7 +6,7 @@ trigger:
 pool:
   name: 'Default'  # The pool where your EC2 agent is registered
   demands:
-    - agent.name -equals ip-10-0-1-17  # This should match the name of your self-hosted agent
+    - agent.name ubuntu-ec2-agent  # This should match the name of your self-hosted agent
 
 steps:
 # Step 1: Check out the code from the repository
