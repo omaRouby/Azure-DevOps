@@ -13,14 +13,12 @@ steps:
 - checkout: self
 
 # Step 2: Build the Docker image using the Dockerfile
+
 - task: Docker@2
   inputs:
-    containerRegistry: 'omarrouby'  # DockerHub username
-    repository: 'spring-app'        # DockerHub repository name
     command: 'buildAndPush'
     Dockerfile: 'spring-boot-app/spring-boot-app/Dockerfile'
-    tags: 'latest'
-
+    
 # Step 3: Apply Kubernetes deployment
 - script: |
     kubectl apply -f kubernetes/deployment.yaml
