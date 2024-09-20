@@ -4,9 +4,9 @@ trigger:
       - main  # or your desired branch
 
 pool:
-  name: 'Default'  # The pool where your EC2 agent is registered
+  name: 'Default'  # Replace 'Default' with your actual pool if needed
   demands:
-    - agent.name ubuntu-ec2-agent  # This should match the name of your self-hosted agent
+    - agent.name -equals ubuntu-ec2-agent  # Corrected demand format
 
 steps:
 # Step 1: Check out the code from the repository
