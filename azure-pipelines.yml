@@ -1,0 +1,42 @@
+trigger:
+- main  # Triggers pipeline on main branch push
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  dockerHubConnection: 'dockerhub-connection'  # Your DockerHub service connection name
+  imageName: 'omarrouby/spring-app'  # Your DockerHub image name
+  containerRegistry: 'docker.io'
+  kubernetesNamespace: 'default'
+  kubernetesClusterConfigPath: '/home/omar/.kube/config'  # Path to your Kube config file on EC2
+
+steps:
+# Checkout code from GitHub
+- task: Checkout@1
+  inputs:
+    repository: self
+
+# Build the Docker image
+- task: Docker@2
+  inputs:
+    containerRegistry: $(dockerHubConnection)
+    repository: $(imageName)
+    command: build
+    Dockerfile: 'spring-boot-app/Dockerfile'
+    tags: latest
+
+# Push the Docker image to DockerHub
+- task: Docker@2
+  inputs:
+    containerRegistry: $(dockerHubConnection)
+    repository: $(imageName)
+    command: push
+    tags: latest
+
+# Deploy the application to Minikube
+- script: |
+    kubectl --kubeconfig $(kubernetesClusterConfigPath) apply -f kubernetes/deployment.yaml
+    kubectl --kubeconfig $(kubernetesClusterConfigPath) apply -f kubernetes/ingress.yaml
+  displayName: 'Deploy to Minikube'
+
