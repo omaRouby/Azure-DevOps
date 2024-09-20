@@ -18,7 +18,7 @@ steps:
     containerRegistry: 'omarrouby'  # DockerHub username
     repository: 'spring-app'        # DockerHub repository name
     command: 'buildAndPush'
-    Dockerfile: 'spring-boot-app/Dockerfile'
+    Dockerfile: 'spring-boot-app/spring-boot-app/Dockerfile'
     tags: 'latest'
 
 # Step 3: Apply Kubernetes deployment
