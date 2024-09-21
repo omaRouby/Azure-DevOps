@@ -89,7 +89,7 @@ SonarQube is deployed using Docker Compose, which is managed by Ansible. Postgre
 ansible-playbook -i inventory playbook.yml -t sonar
 ```
 - Sample image showing SonarQube service connection setup:  
-  ![SonarQube Service Connection]([sonar-service-connection.png](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/sonar-service-connection.png))
+  ![SonarQube Service Connection](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/sonar-service-connection.png)
 
 ## 6. Dockerizing the Spring Boot App
 The `Dockerfile` builds the Spring Boot application using Gradle and then packages it in a slim OpenJDK image for running the app.
@@ -123,7 +123,7 @@ The EC2 instance is configured as a self-hosted Azure DevOps agent to run the CI
 SonarQube is integrated with Azure DevOps to analyze the code quality. A service connection is set up in Azure DevOps to allow communication between SonarQube and the pipeline. The SonarQube token is generated and added to the pipeline configuration.
 
 - Sample image showing SonarQube token setup:  
-  ![SonarQube Token]([sonar-qube-token.png](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/sonar-qube%20token.png))
+  ![SonarQube Token](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/sonar-qube%20token.png)
 
 ## 9. Pipeline Configuration
 
@@ -193,10 +193,10 @@ steps:
 ```
 
 - Sample image showing build success:  
-  ![Build Success]([build-succes.png](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/build-succes.png))
+  ![Build Success](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/build-succes.png)
 
 - Sample image showing job success:  
-  ![Job Success]([job-success.png](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/job-success.png))
+  ![Job Success](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/job-success.png)
 
 ## 10. Deploying to Minikube
 
@@ -207,7 +207,7 @@ kubectl apply -f kubernetes/deployment.yaml
 kubectl apply -f kubernetes/ingress.yaml
 ```
 - Sample image showing kubectl output:  
-  ![kubectl get all]([kubectl-get-all.png](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/kubectl-get-all.png))
+  ![kubectl get all](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/kubectl-get-all.png)
 
 ## 11. Conclusion
 The project successfully demonstrates the automation of the CI/CD pipeline with Azure DevOps, from building a Spring Boot application, checking code quality with SonarQube, Dockerizing the application, and deploying it to Minikube.
