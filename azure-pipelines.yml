@@ -13,6 +13,20 @@ variables:
   imageName: 'omarrouby/spring-app'
 
 steps:
+- task: Bash@3
+  displayName: 'Lint Code'
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo "Running lint checks..."
+      ./gradlew lint
+- task: Bash@3
+  displayName: 'Run Unit Tests'
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo "Running unit tests..."
+      ./gradlew test      
 - task: SonarQubePrepare@6
   inputs:
     SonarQube: 'sonarqube'
