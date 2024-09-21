@@ -1,10 +1,10 @@
 # Azure DevOps - Spring Boot, Ansible, Docker, Kubernetes, and SonarQube CI/CD Pipeline
 
 ## Table of Contents
-1. [Introduction](#Introduction)
-2. [Project Structure](project-structure)
-3. [Technologies Used](#technologies-used)
-4. [Terraform Setup](#terraform-setup)
+1. [Introduction](#1-Introduction)
+2. [Project Structure](#2-Project-structure)
+3. [Technologies Used](#Technologies-used)
+4. [Terraform Setup](#Terraform-setup)
 5. [Ansible Setup](#ansible-setup)
    - [Minikube Setup with Ansible](#minikube-setup-with-ansible)
    - [SonarQube Setup with Ansible](#sonarqube-setup-with-ansible)
