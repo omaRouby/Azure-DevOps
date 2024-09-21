@@ -117,7 +117,7 @@ The EC2 instance is configured as a self-hosted Azure DevOps agent to run the CI
 - Sample image showing agent setup step 1:  
   ![Self-hosted Agent Setup 1](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/self-hostagent-setup1.png)
 - Sample image showing agent setup step 2:  
-  ![Self-hosted Agent Setup 2]([self-hostagent-setup2.png](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/self-hostagent-setup2.png))
+  ![Self-hosted Agent Setup 2](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/self-hostagent-setup2.png))
 
 ## 8. SonarQube Integration with Azure DevOps
 SonarQube is integrated with Azure DevOps to analyze the code quality. A service connection is set up in Azure DevOps to allow communication between SonarQube and the pipeline. The SonarQube token is generated and added to the pipeline configuration.
