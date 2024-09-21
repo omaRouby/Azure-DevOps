@@ -1,7 +1,7 @@
 # Azure DevOps - Spring Boot, Ansible, Docker, Kubernetes, and SonarQube CI/CD Pipeline
 
 ## Table of Contents
-1. [Introduction](#1. introduction)
+1. [Introduction](#Introduction)
 2. [Project Structure](#project-structure)
 3. [Technologies Used](#technologies-used)
 4. [Terraform Setup](#terraform-setup)
@@ -15,7 +15,7 @@
 10. [Deploying to Minikube](#deploying-to-minikube)
 11. [Conclusion](#conclusion)
 
-## 1. Introduction
+##  Introduction
 This project demonstrates the complete CI/CD pipeline from building a Spring Boot application to deploying it in a Kubernetes cluster using Minikube, Ansible, Docker, and Terraform. The pipeline also integrates SonarQube for code quality checks.
 
 ## 2. Project Structure
