@@ -1,7 +1,3 @@
-Here is the updated **README** file with the Azure Pipeline tasks modified as per your request, along with placeholders for images. The table of contents is also included, and sections are rearranged for clarity and completeness.
-
----
-
 # Azure DevOps - Spring Boot, Ansible, Docker, Kubernetes, and SonarQube CI/CD Pipeline
 
 ## Table of Contents
@@ -213,4 +209,3 @@ kubectl apply -f kubernetes/ingress.yaml
 The project successfully demonstrates the automation of the CI/CD pipeline with Azure DevOps, from building a Spring Boot application, checking code quality with SonarQube, Dockerizing the application, and deploying it to Minikube.
 
 ---
-
