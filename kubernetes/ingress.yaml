@@ -6,7 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: 52.90.182.198  # Updated with your EC2 public IP
+    - host: myapp.local  
       http:
         paths:
           - path: /
