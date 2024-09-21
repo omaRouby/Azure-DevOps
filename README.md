@@ -5,15 +5,15 @@
 2. [Project Structure](#2-Project-structure)
 3. [Technologies Used](#3-Technologies-used)
 4. [Terraform Setup](#4-Terraform-setup)
-5. [Ansible Setup](#ansible-setup)
+5. [Ansible Setup](#5-ansible-setup)
    - [Minikube Setup with Ansible](#minikube-setup-with-ansible)
    - [SonarQube Setup with Ansible](#sonarqube-setup-with-ansible)
-6. [Dockerizing the Spring Boot App](#dockerizing-the-spring-boot-app)
-7. [Azure DevOps Self-hosted Agent](#azure-devops-self-hosted-agent)
-8. [SonarQube Integration with Azure DevOps](#sonarqube-integration-with-azure-devops)
-9. [Pipeline Configuration](#pipeline-configuration)
-10. [Deploying to Minikube](#deploying-to-minikube)
-11. [Conclusion](#conclusion)
+6. [Dockerizing the Spring Boot App](#6-dockerizing-the-spring-boot-app)
+7. [Azure DevOps Self-hosted Agent](#7-azure-devops-self-hosted-agent)
+8. [SonarQube Integration with Azure DevOps](#8-sonarqube-integration-with-azure-devops)
+9. [Pipeline Configuration](#9-pipeline-configuration)
+10. [Deploying to Minikube](#10-deploying-to-minikube)
+11. [Conclusion](#11-conclusion)
 
 ## 1. Introduction
 This project demonstrates the complete CI/CD pipeline from building a Spring Boot application to deploying it in a Kubernetes cluster using Minikube, Ansible, Docker, and Terraform. The pipeline also integrates SonarQube for code quality checks.
