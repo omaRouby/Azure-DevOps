@@ -2,7 +2,7 @@
 
 ## Table of Contents
 1. [Introduction](#Introduction)
-2. [Project Structure](#project-structure)
+2. [Project Structure](project-structure)
 3. [Technologies Used](#technologies-used)
 4. [Terraform Setup](#terraform-setup)
 5. [Ansible Setup](#ansible-setup)
