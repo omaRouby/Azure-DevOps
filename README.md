@@ -6,7 +6,6 @@
 3. [Technologies Used](#technologies-used)
 4. [Terraform Setup](#terraform-setup)
 5. [Ansible Setup](#ansible-setup)
-    - [Jenkins Setup with Ansible](#jenkins-setup-with-ansible)
     - [Minikube Setup with Ansible](#minikube-setup-with-ansible)
     - [SonarQube Setup with Ansible](#sonarqube-setup-with-ansible)
 6. [Dockerizing the Spring Boot App](#dockerizing-the-spring-boot-app)
@@ -65,13 +64,7 @@ terraform apply
 ```
 
 ## 5. Ansible Setup
-Ansible playbooks are used to automate the configuration of Jenkins, Docker, SonarQube, and Minikube.
-
-### Jenkins Setup with Ansible
-Ansible installs Jenkins and its plugins, and configures it as a CI server. This is done through the `jenkinsconfig` role.
-```yaml
-ansible-playbook -i inventory playbook.yml -t jenkins
-```
+Ansible playbooks are used to automate the configuration of  Docker, SonarQube, and Minikube.
 
 ### Minikube Setup with Ansible
 Ansible configures Minikube as the local Kubernetes cluster on the EC2 instance using the `minikube` role.
