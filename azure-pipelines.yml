@@ -19,6 +19,7 @@ steps:
     targetType: 'inline'
     script: |
       echo "Running lint checks..."
+      cd spring-boot-app/spring-boot-app
       ./gradlew lint
 - task: Bash@3
   displayName: 'Run Unit Tests'
@@ -26,6 +27,7 @@ steps:
     targetType: 'inline'
     script: |
       echo "Running unit tests..."
+      cd spring-boot-app/spring-boot-app
       ./gradlew test      
 - task: SonarQubePrepare@6
   inputs:
