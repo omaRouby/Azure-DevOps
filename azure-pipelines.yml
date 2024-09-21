@@ -1,5 +1,7 @@
 trigger:
-- main
+  branches:
+    include:
+      - main
 
 pool:
   name: Default
@@ -7,27 +9,54 @@ pool:
     - agent.name -equals ubuntu-ec2-agent
 
 variables:
-  dockerRegistryServiceConnection: 'dockerhub'
+  dockerRegistryServiceConnection: 'omarrouby'
   imageName: 'omarrouby/spring-app'
 
 steps:
+- task: Bash@3
+  displayName: 'Lint Code'
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo "Running lint checks..."
+      cd spring-boot-app/spring-boot-app
+      ./gradlew check
+- task: Bash@3
+  displayName: 'Run Unit Tests'
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo "Running unit tests..."
+      cd spring-boot-app/spring-boot-app
+      ./gradlew test      
+- task: SonarQubePrepare@6
+  inputs:
+    SonarQube: 'sonarqube'
+    scannerMode: 'Other'
+
+- task: SonarQubeAnalyze@6
+  inputs:
+    jdkversion: 'JAVA_HOME_17_X64'
+- task: SonarQubePublish@6
+  inputs:
+    pollingTimeoutSec: '300'
+
 - task: Docker@2
   displayName: 'Build and Push Docker Image'
   inputs:
     command: 'buildAndPush'
-    containerRegistry: 'dockerhub'
+    containerRegistry: 'omarrouby'
     repository: '$(imageName)'
     dockerfile: 'spring-boot-app/spring-boot-app/Dockerfile'
     tags: |
       latest
-    buildContext: 'spring-boot-app'
-    
+    buildContext: 'spring-boot-app/spring-boot-app'
+
 - task: Kubernetes@1
   displayName: 'Deploy to Minikube'
   inputs:
     connectionType: 'None'
     namespace: 'default'
-    command: 'apply'
     useConfigFile: true
     configFile: '$(System.DefaultWorkingDirectory)/kubernetes/deployment.yaml'
     arguments: ''
