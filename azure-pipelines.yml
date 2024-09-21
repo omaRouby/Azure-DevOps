@@ -20,7 +20,7 @@ steps:
     script: |
       echo "Running lint checks..."
       cd spring-boot-app/spring-boot-app
-      ./gradlew lint
+      ./gradlew check
 - task: Bash@3
   displayName: 'Run Unit Tests'
   inputs:
