@@ -1,0 +1,8 @@
+---
+# Restart Minikube service
+- name: Restart Minikube service
+  systemd:
+    name: minikube
+    state: restarted
+  become: yes
+

@@ -1,0 +1,43 @@
+---
+- name: Remove problematic APT repository
+  lineinfile:
+    path: /etc/apt/sources.list
+    state: absent
+    regexp: '^deb http://dl.google.com/linux/ubuntu'
+
+- name: Update package lists
+  apt: 
+    update_cache: yes
+
+- name: Install Docker pre-requisites
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+    state: present
+
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker repository
+  apt_repository:
+    repo: 'deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable'
+    state: present
+
+- name: Update package lists again
+  apt: 
+    update_cache: yes
+
+- name: Install Docker Engine
+  apt:
+    name: docker-ce
+    state: present
+
+- name: Start and enable Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes

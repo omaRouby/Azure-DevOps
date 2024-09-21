@@ -1,0 +1,13 @@
+[Unit]
+Description=Minikube Kubernetes Service
+After=network.target
+
+[Service]
+User={{ ansible_user }}
+ExecStart=/usr/local/bin/minikube start --vm-driver=none
+ExecStop=/usr/local/bin/minikube stop
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

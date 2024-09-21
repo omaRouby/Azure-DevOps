@@ -1,0 +1,4 @@
+---
+oc_cli_version: "latest"  # specify the OpenShift CLI version you want to install
+oc_cli_download_url: "https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz"
+

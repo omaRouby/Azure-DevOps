@@ -1,0 +1,5 @@
+all:
+  hosts:
+    52.90.182.198:
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: /home/omar/bm-terra/ansible/key.pem

@@ -1,0 +1,50 @@
+---
+# Install necessary dependencies
+- name: Install dependencies
+  apt:
+    name:
+      - curl
+      - apt-transport-https
+      - ca-certificates
+      - software-properties-common
+    state: present
+  become: yes
+
+# Download and install Minikube
+- name: Download Minikube binary
+  get_url:
+    url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    dest: /usr/local/bin/minikube
+    mode: '0755'
+  become: yes
+
+# Fetch the latest stable kubectl version
+- name: Fetch latest stable kubectl version
+  uri:
+    url: https://storage.googleapis.com/kubernetes-release/release/stable.txt
+    return_content: yes
+  register: kubectl_version
+
+# Download and install kubectl
+- name: Download kubectl binary
+  get_url:
+    url: "https://storage.googleapis.com/kubernetes-release/release/{{ kubectl_version.content }}/bin/linux/amd64/kubectl"
+    dest: /usr/local/bin/kubectl
+    mode: '0755'
+  become: yes
+
+# Create systemd service file for Minikube
+- name: Create Minikube systemd service file
+  template:
+    src: minikube.service.j2
+    dest: /etc/systemd/system/minikube.service
+  become: yes
+
+# Enable and start Minikube service
+- name: Enable and start Minikube service
+  systemd:
+    name: minikube
+    enabled: yes
+    state: started
+  become: yes
+  notify: Restart Minikube service

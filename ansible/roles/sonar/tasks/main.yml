@@ -1,0 +1,18 @@
+- name: Copy compose file from local machine to managed host
+  copy:
+    src: ../compose/sonarqube_compose.yml
+    dest: /home/ec2-user/
+
+- name: Set sysctl and ulimit settings for ElasticSearch
+  shell: |
+    sysctl -w vm.max_map_count=524288
+    sysctl -w fs.file-max=131072
+    ulimit -n 131072
+    ulimit -u 8192
+  args:
+    executable: /bin/bash
+  become: true
+
+- name: Run Docker Compose
+  command: sudo docker compose -f /home/ec2-user/sonarqube_compose.yml up -d
+  become: true

@@ -1,0 +1,6 @@
+---
+jenkins_user: 'omar'
+jenkins_password: 'omar'
+jenkins_fullname: 'omar ahmed'
+jenkins_email: 'omar.rouby2000@gmail.com'
+jenkins_group: jenkins
