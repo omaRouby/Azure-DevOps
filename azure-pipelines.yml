@@ -58,5 +58,5 @@ steps:
     connectionType: 'None'
     namespace: 'default'
     useConfigFile: true
-    configFile: '$(System.DefaultWorkingDirectory)/kubernetes/deployment.yaml'
+    configFile: '$(System.DefaultWorkingDirectory)/kubernetes/*.yaml'
     arguments: ''
