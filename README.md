@@ -133,78 +133,54 @@ variables:
   dockerRegistryServiceConnection: 'omarrouby'
   imageName: 'omarrouby/spring-app'
 
-stages:
-  - stage: CodeAnalysis
-    displayName: 'Code Linting, Testing, and SonarQube Analysis'
-    jobs:
-      - job: LintAndTest
-        displayName: 'Lint Code and Run Unit Tests'
-        steps:
-          - task: Bash@3
-            displayName: 'Lint Code'
-            inputs:
-              targetType: 'inline'
-              script: |
-                echo "Running lint checks..."
-                cd spring-boot-app/spring-boot-app
-                ./gradlew check
+steps:
+- task: Bash@3
+  displayName: 'Lint Code'
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo "Running lint checks..."
+      cd spring-boot-app/spring-boot-app
+      ./gradlew check
+- task: Bash@3
+  displayName: 'Run Unit Tests'
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo "Running unit tests..."
+      cd spring-boot-app/spring-boot-app
+      ./gradlew test      
+- task: SonarQubePrepare@6
+  inputs:
+    SonarQube: 'sonarqube'
+    scannerMode: 'Other'
 
-          - task: Bash@3
-            displayName: 'Run Unit Tests'
-            inputs:
-              targetType: 'inline'
-              script: |
-                echo "Running unit tests..."
-                cd spring-boot-app/spring-boot-app
-                ./gradlew test
+- task: SonarQubeAnalyze@6
+  inputs:
+    jdkversion: 'JAVA_HOME_17_X64'
+- task: SonarQubePublish@6
+  inputs:
+    pollingTimeoutSec: '300'
 
-      - job: SonarQubeAnalysis
-        displayName: 'SonarQube Analysis'
-        steps:
-          - task: SonarQubePrepare@6
-            inputs:
-              SonarQube: 'sonarqube'
-              scannerMode: 'CLI'
-              configMode: 'manual'
-              cliProjectKey: 'azuredevops'
-              cliProjectName: 'azuredevops'
+- task: Docker@2
+  displayName: 'Build and Push Docker Image'
+  inputs:
+    command: 'buildAndPush'
+    containerRegistry: 'omarrouby'
+    repository: '$(imageName)'
+    dockerfile: 'spring-boot-app/spring-boot-app/Dockerfile'
+    tags: |
+      latest
+    buildContext: 'spring-boot-app/spring-boot-app'
 
-          - task: SonarQubeAnalyze@6
-            inputs:
-              jdkversion: 'JAVA_HOME_17_X64'
-
-          - task: SonarQubePublish@6
-            inputs:
-              pollingTimeoutSec: '300'
-
-  - stage: BuildAndDeploy
-    displayName: 'Build, Push Docker Image, and Deploy to Minikube'
-    jobs:
-      - job: BuildAndPush
-        displayName: 'Build and Push Docker Image'
-        steps:
-          - task: Docker@2
-            displayName: 'Build and Push Docker Image'
-            inputs:
-              command: 'buildAndPush'
-              containerRegistry: 'omarrouby'
-              repository: '$(imageName)'
-              dockerfile: 'spring-boot-app/spring-boot-app/Dockerfile'
-              tags: |
-                latest
-              buildContext: 'spring-boot-app/spring-boot-app'
-
-      - job: DeployToMinikube
-        displayName: 'Deploy to Minikube'
-        steps:
-          - task: Kubernetes@1
-            displayName: 'Deploy to Minikube'
-            inputs:
-              connectionType: 'None'
-              namespace: 'default'
-              useConfigFile: true
-              configFile: '$(System.DefaultWorkingDirectory)/kubernetes/*.yaml'
-              arguments: ''
+- task: Kubernetes@1
+  displayName: 'Deploy to Minikube'
+  inputs:
+    connectionType: 'None'
+    namespace: 'default'
+    useConfigFile: true
+    configFile: '$(System.DefaultWorkingDirectory)/kubernetes/*.yaml'
+    arguments: ''
 
 ```
 
