@@ -3,7 +3,7 @@
 ## Overview
 This project demonstrates the implementation of a CI/CD pipeline for a Spring Boot application using Azure DevOps, Ansible, Docker, Kubernetes (Minikube), and SonarQube. The infrastructure is provisioned using Terraform, and the pipeline runs on a self-hosted agent.
 
-![CI/CD Pipeline Architecture](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/proj.drawio.png)
+![CI/CD Pipeline Architecture](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/proj.drawio%20(1).png)
 
 ## Table of Contents
 1. [Introduction](#1-Introduction)
