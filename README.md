@@ -1,5 +1,10 @@
 # Azure DevOps - Spring Boot, Ansible, Docker, Kubernetes, and SonarQube CI/CD Pipeline
 
+## Overview
+This project demonstrates the implementation of a CI/CD pipeline for a Spring Boot application using Azure DevOps, Ansible, Docker, Kubernetes (Minikube), and SonarQube. The infrastructure is provisioned using Terraform, and the pipeline runs on a self-hosted agent.
+
+![CI/CD Pipeline Architecture](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/proj.drawio%20(1).png)
+
 ## Table of Contents
 1. [Introduction](#1-Introduction)
 2. [Project Structure](#2-Project-structure)
@@ -118,8 +123,7 @@ SonarQube is integrated with Azure DevOps to analyze the code quality. A service
 
 The CI/CD pipeline builds, tests, analyzes, and deploys the application using the following steps:
 
-```yaml
-trigger:
+```yamltrigger:
   branches:
     include:
       - main
@@ -205,7 +209,6 @@ stages:
               useConfigFile: true
               configFile: '$(System.DefaultWorkingDirectory)/kubernetes/*.yaml'
               arguments: ''
-
 
 ```
 
