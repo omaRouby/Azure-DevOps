@@ -1,5 +1,7 @@
 # Azure DevOps - Spring Boot, Ansible, Docker, Kubernetes, and SonarQube CI/CD Pipeline
 
+![](https://github.com/omaRouby/Azure-DevOps/blob/main/screenshots/proj.drawio.png)
+
 ## Table of Contents
 1. [Introduction](#1-Introduction)
 2. [Project Structure](#2-Project-structure)
